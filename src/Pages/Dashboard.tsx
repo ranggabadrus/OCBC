@@ -38,9 +38,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [transaction, setTransaction] = useState([]);
   const [balance, setBalance] = useState<BalanceProp | null>(null);
-  const navigation = useNavigation<ScreenNavigationProp>();
-  const [isModal, setIsModal] = useState(false);
   const [modal, setModal] = useState<ModalProp | null>(null);
+  const [isLogout, setIsLogout] = useState(false);
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   const fetchData = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -99,15 +99,10 @@ export default function Dashboard() {
     return <ActivityIndicator color={'navy'} size="large" />;
   }
 
-  console.log('trans ', modal);
-
   return (
     <View style={styles.flex1}>
       <TouchableOpacity
-        onPress={async () => {
-          await AsyncStorage.removeItem('token');
-          navigation.replace('Auth');
-        }}
+        onPress={async () => setIsLogout(true)}
         style={styles.logout}>
         <Text>Logout</Text>
       </TouchableOpacity>
@@ -213,6 +208,35 @@ export default function Dashboard() {
             }}>
             <Text style={styles.textWhite}>Close</Text>
           </TouchableOpacity>
+        </View>
+      </Modal>
+
+      <Modal
+        isVisible={isLogout}
+        onBackdropPress={() => setIsLogout(false)}
+        onBackButtonPress={() => setIsLogout(false)}>
+        <View style={styles.modalContainer}>
+          <Text style={[styles.textCenter, styles.padding20]}>
+            Whoops.. Are you sure?
+          </Text>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.optionYes}
+              onPress={async () => {
+                // setIsLogout(false);
+                await AsyncStorage.removeItem('token');
+                navigation.replace('Auth');
+              }}>
+              <Text style={styles.textGray}>Yes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.optionNo}
+              onPress={async () => {
+                setIsLogout(false);
+              }}>
+              <Text style={[styles.textWhite, styles.bold]}>No</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </View>

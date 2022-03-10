@@ -8,6 +8,9 @@ import {
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNavigationProp} from '../../App';
 const styles = require('../styles');
 
 export default function Register({
@@ -19,6 +22,8 @@ export default function Register({
   setOnTyping: Function;
   setPage: Function;
 }) {
+  const navigation = useNavigation<ScreenNavigationProp>();
+
   const [username, setUsername] = useState('rangga2');
   const [password, setPassword] = useState('rangga2');
   const [confirmPassword, setConfirmPassword] = useState('rangga2');
@@ -71,7 +76,7 @@ export default function Register({
     setLoading(true);
 
     try {
-      const a = await fetch(
+      const postRegister = await fetch(
         'https://green-thumb-64168.uc.r.appspot.com/register',
         {
           method: 'POST',
@@ -85,15 +90,19 @@ export default function Register({
         },
       );
 
-      if (a.ok) {
-        const res = await a.json();
-        ToastAndroid.show('Welcome ' + username, 6000);
+      if (postRegister.ok) {
+        const res = await postRegister.json();
+        await AsyncStorage.setItem('token', res.token);
+        await AsyncStorage.setItem('username', username);
+        ToastAndroid.show('Welcome ' + username, ToastAndroid.LONG);
         setUsername('');
         setPassword('');
         setLoading(false);
+        navigation.replace('Dashboard');
       } else {
+        const res = await postRegister.json();
         setLoading(false);
-        ToastAndroid.show('Register failed', 6000);
+        ToastAndroid.show('Register failed: ' + res.error, ToastAndroid.LONG);
       }
     } catch (error) {
       console.log('errror ', error);

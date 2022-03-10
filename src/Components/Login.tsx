@@ -71,14 +71,16 @@ export default function Login({
         const res = await postLogin.json();
         await AsyncStorage.setItem('token', res.token);
         await AsyncStorage.setItem('username', username);
-        ToastAndroid.show('Welcome ' + username, 6000);
+        ToastAndroid.show('Welcome ' + username, ToastAndroid.LONG);
         setUsername('');
         setPassword('');
         setLoading(false);
         navigation.replace('Dashboard');
       } else {
         setLoading(false);
-        ToastAndroid.show('Register failed', 6000);
+        const res = await postLogin.json();
+
+        ToastAndroid.show('Login failed: ' + res.error, ToastAndroid.LONG);
       }
     } catch (error) {
       console.log('errror ', error);

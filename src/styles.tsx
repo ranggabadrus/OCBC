@@ -1,6 +1,26 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
+  padding20: {padding: 20},
+  textGray: {color: 'gray'},
+  optionNo: {
+    alignItems: 'center',
+    flex: 1,
+    backgroundColor: '#20cb9d',
+    margin: 10,
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+  optionYes: {
+    alignItems: 'center',
+    flex: 1,
+    borderWidth: 2,
+    borderColor: '#dedede',
+    margin: 10,
+    paddingVertical: 10,
+    borderRadius: 20,
+  },
+
   marginBottom10: {marginBottom: 10},
   textNavy: {color: 'navy'},
   close: {
