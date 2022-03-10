@@ -1,0 +1,28 @@
+import {View, Text, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNavigationProp} from '../../App';
+const styles = require('../styles');
+
+export default function FloatButton({
+  task,
+  text,
+  loading = false,
+}: {
+  task: any;
+  text: string;
+  loading?: boolean;
+}) {
+  return (
+    <View style={styles.float}>
+      <TouchableOpacity
+        style={styles.floatBtn}
+        onPress={task}
+        disabled={loading}>
+        <Text style={[styles.textMedium, styles.textWhite]}>
+          {loading ? 'Loading' : text}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
