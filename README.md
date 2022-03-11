@@ -26,16 +26,13 @@ Library that i used:
  - @react-native-async-storage/async-storage
 
 
-Login Page(Styled)
+Login Page
 
-<img width="449" alt="Screenshot 2022-03-11 at 01 16 21" src="https://user-images.githubusercontent.com/46615811/157728713-397c121f-2ce7-4707-a0b4-048c38aed092.png">
+<img width="446" alt="Screenshot 2022-03-11 at 18 49 31" src="https://user-images.githubusercontent.com/46615811/157861616-064e49f0-0c79-40b3-a514-bff24d9be1eb.png">
 
-Dashboard Page(Unstyled)
+Make A Transfer
 
-<img width="447" alt="Screenshot 2022-03-11 at 01 18 08" src="https://user-images.githubusercontent.com/46615811/157728923-05c6bb9b-3b5e-4b94-8471-9c6a4b536038.png">
+<img width="442" alt="Screenshot 2022-03-11 at 18 48 07" src="https://user-images.githubusercontent.com/46615811/157861417-6772c8c7-0354-4b82-8afb-78a0fa07d0b6.png">
 
-Make A Transfer(Unstyled)
-
-<img width="445" alt="Screenshot 2022-03-11 at 01 19 00" src="https://user-images.githubusercontent.com/46615811/157729058-c09a6756-3782-4950-af32-5b0ad49ebe15.png">
 
 
