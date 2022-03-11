@@ -33,6 +33,7 @@ Login Page
 
 Make A Transfer
 
-<img width="445" alt="Screenshot 2022-03-11 at 01 19 00" src="https://user-images.githubusercontent.com/46615811/157729058-c09a6756-3782-4950-af32-5b0ad49ebe15.png">
+<img width="442" alt="Screenshot 2022-03-11 at 18 48 07" src="https://user-images.githubusercontent.com/46615811/157861417-6772c8c7-0354-4b82-8afb-78a0fa07d0b6.png">
+
 
 
