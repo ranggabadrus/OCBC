@@ -28,8 +28,7 @@ Library that i used:
 
 Login Page
 
-<img width="449" alt="Screenshot 2022-03-11 at 01 16 21" src="https://user-images.githubusercontent.com/46615811/157728713-397c121f-2ce7-4707-a0b4-048c38aed092.png">
-
+<img width="446" alt="Screenshot 2022-03-11 at 18 49 31" src="https://user-images.githubusercontent.com/46615811/157861616-064e49f0-0c79-40b3-a514-bff24d9be1eb.png">
 
 Make A Transfer
 
