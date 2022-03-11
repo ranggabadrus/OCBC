@@ -141,7 +141,7 @@ export default function Login({
           onChangeText={e => setPassword(e)}
           secureTextEntry={!showPassword}
           placeholderTextColor={'gray'}
-          placeholder="123456"
+          placeholder="rangga"
           style={styles.formEmail}
         />
         {emptyPassword && (
