@@ -1,12 +1,15 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
 module.exports = StyleSheet.create({
+  ml5: {
+    marginLeft: 5,
+  },
   padding20: {padding: 20},
   textGray: {color: 'gray'},
   optionNo: {
     alignItems: 'center',
     flex: 1,
-    backgroundColor: '#20cb9d',
+    backgroundColor: 'navy',
     margin: 10,
     paddingVertical: 10,
     borderRadius: 20,
@@ -68,7 +71,7 @@ module.exports = StyleSheet.create({
   },
   btnSuccessOutline: {
     borderWidth: 2,
-    borderColor: '#20cb9d',
+    borderColor: 'navy',
     margin: 5,
     borderRadius: 10,
     justifyContent: 'center',
@@ -77,7 +80,7 @@ module.exports = StyleSheet.create({
     flex: 1,
   },
   btnSuccess: {
-    backgroundColor: '#20cb9d',
+    backgroundColor: 'navy',
     margin: 5,
     borderRadius: 10,
     justifyContent: 'center',
@@ -97,10 +100,18 @@ module.exports = StyleSheet.create({
   },
   transferContainer: {padding: 20, flex: 1},
   floatBtn: {
+    backgroundColor: 'black',
+    paddingHorizontal: 50,
+    paddingVertical: 10,
+    borderRadius: 50,
+    alignItems: 'center',
+  },
+  floatBtnActive: {
     backgroundColor: 'navy',
     paddingHorizontal: 50,
     paddingVertical: 10,
     borderRadius: 50,
+    alignItems: 'center',
   },
   float: {
     position: 'absolute',
@@ -129,10 +140,12 @@ module.exports = StyleSheet.create({
   logout: {
     alignSelf: 'flex-end',
     margin: 10,
+    backgroundColor: '#f2f2f2',
   },
   header: {
     borderWidth: 2,
     borderColor: 'navy',
+    opacity: 0.9,
     backgroundColor: '#fff',
     alignSelf: 'flex-start',
     borderBottomEndRadius: 50,

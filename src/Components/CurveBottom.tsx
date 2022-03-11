@@ -2,7 +2,7 @@ import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React from 'react';
 import Svg, {Circle, Ellipse, Path} from 'react-native-svg';
 
-export default function Curve({color = '#fff'}: {color?: string}) {
+export default function CurveBottom({color = '#fff'}: {color?: string}) {
   // console.log("Dimensions.get('screen').width", Dimensions.get('screen').width);
   const screenWidth = Dimensions.get('screen').width;
   return (
@@ -13,8 +13,8 @@ export default function Curve({color = '#fff'}: {color?: string}) {
       </Svg> */}
         <Svg height={500} width={screenWidth}>
           <Circle
-            cx={-50}
-            cy={-300}
+            cx={450}
+            cy={800}
             r={500}
             fill={color}
             stroke="navy"
@@ -29,7 +29,8 @@ export default function Curve({color = '#fff'}: {color?: string}) {
 const styles = StyleSheet.create({
   title: {color: '#000'},
   curve: {
-    top: 0,
+    bottom: 0,
+    zIndex: -1,
     position: 'absolute',
   },
 });

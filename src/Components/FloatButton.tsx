@@ -8,15 +8,17 @@ export default function FloatButton({
   task,
   text,
   loading = false,
+  active = false,
 }: {
   task: any;
   text: string;
   loading?: boolean;
+  active?: boolean;
 }) {
   return (
     <View style={styles.float}>
       <TouchableOpacity
-        style={styles.floatBtn}
+        style={active ? styles.floatBtnActive : styles.floatBtn}
         onPress={task}
         disabled={loading}>
         <Text style={[styles.textMedium, styles.textWhite]}>

@@ -40,7 +40,7 @@ export default function Success({route, navigation}: any) {
         <TouchableOpacity
           style={styles.btnSuccessOutline}
           onPress={() => navigation.navigate('Transfer')}>
-          <Text style={[styles.textMedium, styles.textGreen]}>Once again</Text>
+          <Text style={[styles.textMedium, styles.textNavy]}>Once again</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnSuccess}

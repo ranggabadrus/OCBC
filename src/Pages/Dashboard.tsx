@@ -5,8 +5,9 @@ import {
   ActivityIndicator,
   FlatList,
   ToastAndroid,
+  Animated,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNavigationProp} from '../../App';
 import Card from '../Components/Card';
@@ -15,6 +16,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFormat} from '../Utils/useFormat';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import CurveBottom from '../Components/CurveBottom';
+import Curve from '../Components/Curve';
 
 const styles = require('../styles');
 
@@ -40,7 +43,9 @@ export default function Dashboard() {
   const [balance, setBalance] = useState<BalanceProp | null>(null);
   const [modal, setModal] = useState<ModalProp | null>(null);
   const [isLogout, setIsLogout] = useState(false);
+  const [visibleLogout, setVisibleLogout] = useState(false);
   const navigation = useNavigation<ScreenNavigationProp>();
+  const moveAside = useRef(new Animated.Value(55)).current; // Initial value for opacity: 0
 
   const fetchData = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -58,7 +63,6 @@ export default function Dashboard() {
         }),
       ]);
 
-      console.log('getData ', getData);
       if (getData[0].ok && getData[1].ok) {
         const res = await Promise.all(getData.map(async e => await e.json()));
 
@@ -95,20 +99,41 @@ export default function Dashboard() {
     };
   }, [navigation]);
 
+  const animationLogout = () => {
+    Animated.timing(moveAside, {
+      toValue: visibleLogout ? 55 : 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+    setVisibleLogout(!visibleLogout);
+  };
+
   if (loading) {
     return <ActivityIndicator color={'navy'} size="large" />;
   }
 
   return (
     <View style={styles.flex1}>
-      <TouchableOpacity
-        onPress={async () => setIsLogout(true)}
-        style={styles.logout}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
+      <Curve color="navy" />
+      <Animated.View
+        style={[
+          styles.logout,
+          {
+            transform: [{translateX: moveAside}],
+          },
+        ]}>
+        <TouchableOpacity onPress={animationLogout} style={styles.row}>
+          <Icon name="logout-variant" size={24} color="gray" />
+          <TouchableOpacity
+            style={styles.ml5}
+            onPress={async () => setIsLogout(true)}>
+            <Text>Logout</Text>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </Animated.View>
       <View style={[styles.header]}>
         <Text style={styles.textMedium}>You have</Text>
-        <Text style={[styles.textLarge, styles.textNavy]}>
+        <Text style={[styles.textLarge]}>
           SGD${useFormat(balance?.balance)}
         </Text>
         <Text>Account No</Text>
@@ -145,7 +170,7 @@ export default function Dashboard() {
         task={() => navigation.navigate('Transfer')}
         text={'Make Transfer'}
       />
-
+      <CurveBottom color="navy" />
       <Modal
         isVisible={modal ? true : false}
         onBackdropPress={() => setModal(null)}

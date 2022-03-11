@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import Curve from '../Components/Curve';
 import Register from '../Components/Register';
 import Login from '../Components/Login';
+import CurveBottom from '../Components/CurveBottom';
 const styles = require('../styles');
 const OCBC = require('../Images/ocbc.png');
 
@@ -41,6 +42,7 @@ export default function Auth() {
       ) : (
         <Register button={page} setPage={setPage} setOnTyping={setOnTyping} />
       )}
+      <CurveBottom />
     </View>
   );
 }

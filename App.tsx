@@ -14,9 +14,10 @@ import {LogBox} from 'react-native';
 import Success from './src/Pages/Success';
 import Failed from './src/Pages/Failed';
 
-LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-]);
+// LogBox.ignoreLogs([
+//   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+// ]);
+
 type RootStackParamList = {
   Auth: undefined;
   Dashboard: undefined;
