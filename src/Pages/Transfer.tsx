@@ -124,7 +124,11 @@ export default function Transfer() {
           <Icon name="keyboard-backspace" color="#000" size={24} />
         </TouchableOpacity>
         <SvgComponent />
-        <Text style={[styles.textLarge, styles.marginBottom]}>Transfer</Text>
+        <Text
+          style={[styles.textLarge, styles.marginBottom]}
+          testID="transferID">
+          Transfer
+        </Text>
         <View style={styles.marginBottom}>
           <Dropdown
             name="Select Receipient"

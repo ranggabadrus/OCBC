@@ -17,16 +17,18 @@ export default function Register({
   button,
   setOnTyping,
   setPage,
+  testID,
 }: {
-  button: String;
+  testID: string;
+  button: string;
   setOnTyping: Function;
   setPage: Function;
 }) {
   const navigation = useNavigation<ScreenNavigationProp>();
 
-  const [username, setUsername] = useState('rangga2');
-  const [password, setPassword] = useState('rangga2');
-  const [confirmPassword, setConfirmPassword] = useState('rangga2');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -105,12 +107,13 @@ export default function Register({
         ToastAndroid.show('Register failed: ' + res.error, ToastAndroid.LONG);
       }
     } catch (error) {
-      console.log('errror ', error);
+      // console.log('errror ', error);
     }
   };
 
   return (
     <LinearGradient
+      testID={testID}
       style={styles.login}
       colors={['navy', '#17285e', '#17285e', '#17285e', 'navy']}
       start={{x: 1, y: 0}}
@@ -129,6 +132,7 @@ export default function Register({
           placeholderTextColor={'gray'}
           placeholder="rangga@ocbc.com"
           style={styles.formEmail}
+          testID="emptyRegisterUsername"
         />
         {emptyUsername && (
           <Text style={styles.textRed}>Username is required</Text>
@@ -157,6 +161,7 @@ export default function Register({
           placeholderTextColor={'gray'}
           placeholder="123456"
           style={styles.formEmail}
+          testID="emptyRegisterPassword"
         />
         {emptyPassword && (
           <Text style={styles.textRed}>Password is required</Text>
@@ -186,6 +191,7 @@ export default function Register({
           placeholderTextColor={'gray'}
           placeholder="123456"
           style={styles.formEmail}
+          testID="emptyRegisterConfirmPassword"
         />
         {emptyConfirmPassword && (
           <Text style={styles.textRed}>Password is required</Text>
@@ -197,6 +203,7 @@ export default function Register({
 
       <View style={styles.containerButton}>
         <TouchableOpacity
+          testID="register"
           style={styles.buttonLogin}
           onPress={register}
           disabled={loading}>

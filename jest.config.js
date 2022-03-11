@@ -1,7 +1,14 @@
 module.exports = {
-  setupFiles: ['<rootDir>/jest/setup.js'],
+  preset: 'react-native',
 
-  transformIgnorePatterns: ['node_modules/(?!(@react-native|react-native)/)'],
+  setupFiles: [
+    '<rootDir>/jest/setup.js',
+    '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
+  ],
+
+  transformIgnorePatterns: [
+    'node_modules/(?!(@react-native|react-native|react-native-vector-icons|react-native-linear-gradient|@react-native-async-storage|@react-native-community|@react-navigation|react-native-modal|react-native-animatable)/)',
+  ],
   globals: {
     __DEV__: true,
   },
@@ -15,4 +22,5 @@ module.exports = {
     'ios',
     'android',
   ],
+  collectCoverage: true,
 };

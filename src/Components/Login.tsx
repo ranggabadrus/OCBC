@@ -7,7 +7,7 @@ import {
   ScrollView,
   ToastAndroid,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, FC} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -18,13 +18,15 @@ const styles = require('../styles');
 export default function Login({
   button,
   setOnTyping,
+  testID,
 }: {
+  testID: string;
   button: String;
   setOnTyping: Function;
 }) {
   const navigation = useNavigation<ScreenNavigationProp>();
-  const [username, setUsername] = useState('rangga1');
-  const [password, setPassword] = useState('rangga1');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -84,11 +86,14 @@ export default function Login({
       }
     } catch (error) {
       console.log('errror ', error);
+      setLoading(false);
+      ToastAndroid.show('Login failed: ', ToastAndroid.LONG);
     }
   };
 
   return (
     <LinearGradient
+      testID={testID}
       style={styles.login}
       colors={['navy', '#17285e', '#17285e', '#17285e', 'navy']}
       start={{x: 1, y: 0}}
@@ -107,9 +112,12 @@ export default function Login({
           placeholderTextColor={'gray'}
           placeholder="rangga"
           style={styles.formEmail}
+          testID="username"
         />
         {emptyUsername && (
-          <Text style={styles.textRed}>Username is required</Text>
+          <Text testID="emptyUsername" style={styles.textRed}>
+            Username is required
+          </Text>
         )}
       </View>
       <View style={styles.form}>
@@ -137,12 +145,15 @@ export default function Login({
           style={styles.formEmail}
         />
         {emptyPassword && (
-          <Text style={styles.textRed}>Password is required</Text>
+          <Text testID="emptyPassword" style={styles.textRed}>
+            Password is required
+          </Text>
         )}
       </View>
       {/* <Text style={styles.textWhite}>Forget password?</Text> */}
       <View style={styles.containerButton}>
         <TouchableOpacity
+          testID="login"
           style={styles.buttonLogin}
           onPress={login}
           disabled={loading}>

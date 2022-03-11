@@ -18,6 +18,7 @@ export default function FloatButton({
   return (
     <View style={styles.float}>
       <TouchableOpacity
+        testID="goToTransfer"
         style={active ? styles.floatBtnActive : styles.floatBtn}
         onPress={task}
         disabled={loading}>

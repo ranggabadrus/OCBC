@@ -21,6 +21,7 @@ export default function Auth() {
       <Curve />
       <View style={styles.sideMenu}>
         <TouchableOpacity
+          testID="loginButton"
           style={page == 'Login' ? styles.btnActive : styles.btnInactive}
           onPress={() => setPage('Login')}>
           <Text style={page == 'Login' ? styles.textBlack : styles.textWhite}>
@@ -28,6 +29,7 @@ export default function Auth() {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
+          testID="registerButton"
           style={page == 'Register' ? styles.btnActive : styles.btnInactive}
           onPress={() => setPage('Register')}>
           <Text
@@ -38,9 +40,14 @@ export default function Auth() {
       </View>
 
       {page == 'Login' ? (
-        <Login button={page} setOnTyping={setOnTyping} />
+        <Login testID="loginPage" button={page} setOnTyping={setOnTyping} />
       ) : (
-        <Register button={page} setPage={setPage} setOnTyping={setOnTyping} />
+        <Register
+          testID="registerPage"
+          button={page}
+          setPage={setPage}
+          setOnTyping={setOnTyping}
+        />
       )}
       <CurveBottom />
     </View>
