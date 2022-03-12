@@ -6,17 +6,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Auth from './src/Pages/Auth';
 import Dashboard from './src/Pages/Dashboard';
 
-import type {CompositeNavigationProp} from '@react-navigation/native';
 import type {StackNavigationProp} from '@react-navigation/stack';
 import Transfer from './src/Pages/Transfer';
 
-import {LogBox} from 'react-native';
 import Success from './src/Pages/Success';
 import Failed from './src/Pages/Failed';
-
-// LogBox.ignoreLogs([
-//   "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
-// ]);
 
 type RootStackParamList = {
   Auth: undefined;

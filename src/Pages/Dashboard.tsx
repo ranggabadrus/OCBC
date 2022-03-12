@@ -109,7 +109,12 @@ export default function Dashboard() {
   };
 
   if (loading) {
-    return <ActivityIndicator color={'navy'} size="large" />;
+    return (
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={[styles.textLarge, styles.textNavy]}>Loading</Text>
+        <ActivityIndicator color={'navy'} size="large" />
+      </View>
+    );
   }
 
   return (
@@ -132,12 +137,16 @@ export default function Dashboard() {
         </TouchableOpacity>
       </Animated.View>
       <View style={[styles.header]}>
-        <Text style={styles.textMedium}>You have</Text>
-        <Text style={[styles.textLarge]}>
+        <Text style={styles.textMedium} testID={'money'}>
+          You have
+        </Text>
+        <Text style={[styles.textLarge]} testID="balance">
           SGD${useFormat(balance?.balance)}
         </Text>
         <Text>Account No</Text>
-        <Text style={styles.textMedium}>{balance?.accountNo}</Text>
+        <Text style={styles.textMedium} testID="accountNo">
+          {balance?.accountNo}
+        </Text>
         <Text>Account Holder</Text>
         <Text style={styles.textMedium}>{username}</Text>
       </View>
@@ -146,6 +155,7 @@ export default function Dashboard() {
           Your transaction history
         </Text>
         <FlatList
+          testID="transaction"
           data={transaction}
           renderItem={({item}: any) => {
             const person =
@@ -166,6 +176,7 @@ export default function Dashboard() {
           contentContainerStyle={{paddingBottom: 50}}
         />
       </View>
+
       <FloatButton
         task={() => navigation.navigate('Transfer')}
         text={'Make Transfer'}

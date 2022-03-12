@@ -22,5 +22,8 @@ module.exports = {
     'ios',
     'android',
   ],
+  automock: false,
+  resetMocks: false,
+
   collectCoverage: true,
 };

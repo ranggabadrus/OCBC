@@ -3,9 +3,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  ScrollView,
   ToastAndroid,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState, FC} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -73,21 +72,24 @@ export default function Login({
         const res = await postLogin.json();
         await AsyncStorage.setItem('token', res.token);
         await AsyncStorage.setItem('username', username);
-        ToastAndroid.show('Welcome ' + username, ToastAndroid.LONG);
-        setUsername('');
-        setPassword('');
-        setLoading(false);
+        if (Platform.OS == 'android') {
+          ToastAndroid.show('Welcome ' + username, ToastAndroid.LONG);
+        }
+
         navigation.replace('Dashboard');
       } else {
         setLoading(false);
         const res = await postLogin.json();
-
-        ToastAndroid.show('Login failed: ' + res.error, ToastAndroid.LONG);
+        if (Platform.OS == 'android') {
+          ToastAndroid.show('Login failed: ' + res.error, ToastAndroid.LONG);
+        }
       }
     } catch (error) {
       console.log('errror ', error);
       setLoading(false);
-      ToastAndroid.show('Login failed: ', ToastAndroid.LONG);
+      if (Platform.OS == 'android') {
+        ToastAndroid.show('Login failed: ', ToastAndroid.LONG);
+      }
     }
   };
 
@@ -143,6 +145,7 @@ export default function Login({
           placeholderTextColor={'gray'}
           placeholder="rangga"
           style={styles.formEmail}
+          testID="password"
         />
         {emptyPassword && (
           <Text testID="emptyPassword" style={styles.textRed}>

@@ -1,5 +1,8 @@
 import 'react-native-gesture-handler/jestSetup';
+// import '@testing-library/jest-native/extend-expect';
+
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock';
+import fetchMock from 'jest-fetch-mock';
 
 jest.mock('react-native-reanimated', () => {
   const Reanimated = require('react-native-reanimated/mock');
@@ -20,21 +23,9 @@ jest.mock('@react-navigation/native', () => {
   const actualNav = jest.requireActual('@react-navigation/native');
   return {
     ...actualNav,
-    useNavigation: () => ({
-      navigate: jest.fn(),
-      dispatch: jest.fn(),
-    }),
+    useNavigation: jest.fn(),
   };
 });
 
-jest.mock('@react-navigation/stack', () => {
-  const actualNav = jest.requireActual('@react-navigation/stack');
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      navigate: jest.fn(),
-      dispatch: jest.fn(),
-      replace: jest.fn(),
-    }),
-  };
-});
+// require('jest-fetch-mock').enableMocks();
+fetchMock.enableMocks();

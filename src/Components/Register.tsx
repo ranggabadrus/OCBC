@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   ToastAndroid,
+  Platform,
 } from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -96,15 +97,16 @@ export default function Register({
         const res = await postRegister.json();
         await AsyncStorage.setItem('token', res.token);
         await AsyncStorage.setItem('username', username);
-        ToastAndroid.show('Welcome ' + username, ToastAndroid.LONG);
-        setUsername('');
-        setPassword('');
-        setLoading(false);
+        if (Platform.OS == 'android') {
+          ToastAndroid.show('Welcome ' + username, ToastAndroid.LONG);
+        }
         navigation.replace('Dashboard');
       } else {
         const res = await postRegister.json();
         setLoading(false);
-        ToastAndroid.show('Register failed: ' + res.error, ToastAndroid.LONG);
+        if (Platform.OS == 'android') {
+          ToastAndroid.show('Register failed: ' + res.error, ToastAndroid.LONG);
+        }
       }
     } catch (error) {
       // console.log('errror ', error);
@@ -132,10 +134,12 @@ export default function Register({
           placeholderTextColor={'gray'}
           placeholder="rangga@ocbc.com"
           style={styles.formEmail}
-          testID="emptyRegisterUsername"
+          testID="registerUsername"
         />
         {emptyUsername && (
-          <Text style={styles.textRed}>Username is required</Text>
+          <Text testID="emptyRegisterUsername" style={styles.textRed}>
+            Username is required
+          </Text>
         )}
       </View>
       <View style={styles.form}>
@@ -161,10 +165,12 @@ export default function Register({
           placeholderTextColor={'gray'}
           placeholder="123456"
           style={styles.formEmail}
-          testID="emptyRegisterPassword"
+          testID="registerPassword"
         />
         {emptyPassword && (
-          <Text style={styles.textRed}>Password is required</Text>
+          <Text testID="emptyRegisterPassword" style={styles.textRed}>
+            Password is required
+          </Text>
         )}
       </View>
       <View style={styles.form}>
@@ -191,10 +197,12 @@ export default function Register({
           placeholderTextColor={'gray'}
           placeholder="123456"
           style={styles.formEmail}
-          testID="emptyRegisterConfirmPassword"
+          testID="registerConfirmPassword"
         />
         {emptyConfirmPassword && (
-          <Text style={styles.textRed}>Password is required</Text>
+          <Text testID="emptyRegisterConfirmPassword" style={styles.textRed}>
+            Password is required
+          </Text>
         )}
         {missmatchPassword && (
           <Text style={styles.textRed}>Confirm password is missmatch</Text>

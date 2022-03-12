@@ -13,7 +13,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {TextInput} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Dropdown from '../Components/Dropdown';
-import FloatButton from '../Components/FloatButton';
 import SvgComponent from '../Images/Transfer';
 const styles = require('../styles');
 
