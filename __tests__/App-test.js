@@ -1,26 +1,129 @@
+import React, {useEffect, useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React from 'react';
-// import App from '../App';
 
-// Note: test renderer must be required after react-native.
-import renderer, {act, create} from 'react-test-renderer';
 import Login from '../src/Components/Login';
-import Auth from '../src/Pages/Auth';
-import {render, fireEvent, waitFor} from '@testing-library/react-native';
-import {TouchableOpacity, View, Text, TextInput} from 'react-native';
+import {
+  render,
+  fireEvent,
+  waitFor,
+  act,
+  cleanup,
+} from '@testing-library/react-native';
 import Register from '../src/Components/Register';
-import FloatButton from '../src/Components/FloatButton';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import Dashboard from '../src/Pages/Dashboard';
-import Transfer from '../src/Pages/Transfer';
 
 jest.useFakeTimers();
-jest.runAllTimers();
+// jest.runAllTimers();
+jest.setTimeout(30000);
+
 jest.mock('@react-navigation/native', () => {
   return {
     useNavigation: jest.fn(),
   };
 });
+afterEach(() => cleanup());
+
+describe('Transaction Page', () => {});
+
+describe('Dashboard Page ', () => {
+  beforeEach(() => {
+    fetch.mockResponses(
+      [
+        JSON.stringify({
+          accountNo: '12345',
+          balance: 111111,
+          status: 'success',
+        }),
+      ],
+      [
+        JSON.stringify({
+          status: 'success',
+          data: [
+            {
+              transactionId: '622ba782f3aa395d71354900',
+              amount: 100000,
+              transactionDate: '2022-03-11T19:48:18.249Z',
+              description: 'Default money-in transaction',
+              transactionType: 'received',
+              sender: {
+                accountNo: '1111-111-1111',
+                accountHolder: 'Jane',
+              },
+            },
+          ],
+        }),
+      ],
+    );
+  });
+  it('render dashboard with fetched data', async () => {
+    const navigation = jest.fn();
+    useNavigation.mockImplementation(() => ({
+      navigate: navigation,
+      addListener: navigation,
+      replace: navigation,
+    }));
+
+    const {toJSON, getByTestId, findByTestId, findAllByTestId} = render(
+      <Dashboard />,
+    );
+
+    await waitFor(async () => {
+      const balance = getByTestId('balance', {}, {timeout: 2000});
+      expect(balance.props.children).not.toEqual('NaN');
+      const accountNo = getByTestId('accountNo', {}, {timeout: 2000});
+      expect(accountNo.props.children).toEqual('12345');
+      const transaction = getByTestId('transaction', {}, {timeout: 2000});
+      expect(transaction.props.data).toHaveLength(1);
+    });
+
+    // expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('from dashboard go to transfer page', async () => {
+    const navigation = jest.fn();
+    useNavigation.mockImplementation(() => ({
+      navigate: navigation,
+      addListener: navigation,
+      replace: navigation,
+    }));
+
+    const {toJSON, getByTestId, findByTestId, findAllByTestId} = render(
+      <Dashboard />,
+    );
+
+    await waitFor(async () => {
+      const transfer = getByTestId('goToTransfer');
+      fireEvent.press(transfer);
+      expect(navigation).toHaveBeenCalledWith('Transfer');
+    });
+
+    expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('open modal for detail transaction', async () => {
+    const navigation = jest.fn();
+    useNavigation.mockImplementation(() => ({
+      navigate: navigation,
+      addListener: navigation,
+      replace: navigation,
+    }));
+
+    const {toJSON, getByTestId, findByTestId, findAllByTestId} = render(
+      <Dashboard />,
+    );
+
+    await waitFor(async () => {
+      const button = getByTestId('detail');
+      fireEvent.press(button);
+      const detailModal = getByTestId('detailModal');
+      expect(detailModal.props.visible).toEqual(true);
+    });
+
+    expect(toJSON()).toMatchSnapshot();
+  });
+});
+
 describe('Login page', () => {
   test('Validation text appear when fields are empty ', async () => {
     const {getByTestId, getByText, queryByTestId, toJSON, queryAllByTestId} =
