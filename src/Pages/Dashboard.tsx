@@ -79,7 +79,6 @@ export default function Dashboard() {
       .then(res => res.json())
       .then(async res => {
         if (res.status == 'success') {
-          console.log('res.data ', res.data);
           setTransaction(res.data);
           setLoading(false);
           return res.data;
