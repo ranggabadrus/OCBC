@@ -17,21 +17,27 @@ export default function Success({route, navigation}: any) {
           <Text style={[styles.textBlack, styles.textCenter]}>
             You've successfully transfer{' '}
             <Text style={[styles.bold, styles.textRed]}>SGD${amount}</Text> to{' '}
-            {payee.name}
+            <Text testID="payeeNameSuccess">{payee.name}</Text>
           </Text>
           <View style={styles.successDetails}>
             <View style={[styles.row, styles.between]}>
-              <Text>Account Receipient:</Text>
-              <Text style={styles.bold}> {payee.accountNo}</Text>
+              <Text>Account Receipient: </Text>
+              <Text style={styles.bold} testID="payeeAccountNoSuccess">
+                {payee.accountNo}
+              </Text>
             </View>
             <View style={[styles.row, styles.between]}>
-              <Text>Description:</Text>
-              <Text style={styles.bold}> {description}</Text>
+              <Text>Description: </Text>
+              <Text style={styles.bold} testID="descriptionSuccess">
+                {description}
+              </Text>
             </View>
 
             <View style={[styles.row, styles.between]}>
-              <Text>Transaction ID:</Text>
-              <Text style={styles.bold}> {transactionId}</Text>
+              <Text>Transaction ID: </Text>
+              <Text style={styles.bold} testID="transactionIdSuccess">
+                {transactionId}
+              </Text>
             </View>
           </View>
         </View>
@@ -39,12 +45,14 @@ export default function Success({route, navigation}: any) {
       <View style={[styles.row]}>
         <TouchableOpacity
           style={styles.btnSuccessOutline}
-          onPress={() => navigation.navigate('Transfer')}>
+          onPress={() => navigation.navigate('Transfer')}
+          testID="onceAgain">
           <Text style={[styles.textMedium, styles.textNavy]}>Once again</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.btnSuccess}
-          onPress={() => navigation.navigate('Dashboard')}>
+          onPress={() => navigation.navigate('Dashboard')}
+          testID="goDashboardSuccess">
           <Text style={[styles.textMedium, styles.textWhite]}>Dashboard</Text>
         </TouchableOpacity>
       </View>

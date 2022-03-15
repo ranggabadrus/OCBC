@@ -25,5 +25,5 @@ module.exports = {
   automock: false,
   resetMocks: false,
 
-  // collectCoverage: true,
+  collectCoverage: true,
 };
