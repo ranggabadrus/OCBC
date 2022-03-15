@@ -36,19 +36,16 @@ export default function Transfer() {
   const fetchData = async () => {
     const token = await AsyncStorage.getItem('token');
 
-    const getPayee = await fetch(
-      'https://green-thumb-64168.uc.r.appspot.com/payees',
-      {
-        headers: {
-          Authorization: `${token}`,
-        },
+    fetch('https://green-thumb-64168.uc.r.appspot.com/payees', {
+      headers: {
+        Authorization: `${token}`,
       },
-    );
-
-    if (getPayee.ok) {
-      const res = await getPayee.json();
-      setListPayee(res.data);
-    }
+    })
+      .then(res => res.json())
+      .then(({data}) => {
+        setListPayee(data);
+        return data;
+      });
   };
   useEffect(() => {
     fetchData();
@@ -73,7 +70,7 @@ export default function Transfer() {
     setLoading(true);
 
     const token = await AsyncStorage.getItem('token');
-    console.log('token ', token);
+
     const post = await fetch(
       'https://green-thumb-64168.uc.r.appspot.com/transfer/',
       {
@@ -89,10 +86,11 @@ export default function Transfer() {
         },
       },
     );
-    setLoading(false);
     if (post.ok) {
       const res = await post.json();
-      ToastAndroid.show('Transfer success', 5000);
+      if (Platform.OS == 'android') {
+        ToastAndroid.show('Transfer success', 5000);
+      }
       navigation.navigate('Success', {
         payee,
         amount,
@@ -101,13 +99,15 @@ export default function Transfer() {
       });
     } else {
       const res = await post.json();
+      if (Platform.OS == 'android') {
+        ToastAndroid.show('Transfer failed', 5000);
+      }
       navigation.navigate('Failed', {
         payee,
         amount,
         description,
         error: res.error,
       });
-      //   ToastAndroid.show('Transfer failed', 5000);
     }
   };
 
@@ -135,12 +135,15 @@ export default function Transfer() {
             onSelect={setPayee}
           />
           {emptyPayee && (
-            <Text style={styles.textRed}>Receipient is required</Text>
+            <Text style={styles.textRed} testID="emptyPayee">
+              Receipient is required
+            </Text>
           )}
         </View>
 
         <View style={styles.marginBottom}>
           <TextInput
+            testID="amountForm"
             value={amount}
             keyboardType="numeric"
             onChangeText={e => setAmount(e)}
@@ -148,11 +151,14 @@ export default function Transfer() {
             style={styles.formDefault}
           />
           {emptyAmount && (
-            <Text style={styles.textRed}>Amount is required</Text>
+            <Text style={styles.textRed} testID="emptyAmount">
+              Amount is required
+            </Text>
           )}
         </View>
         <View style={styles.marginBottom}>
           <TextInput
+            testID="descriptionForm"
             value={description}
             multiline={true}
             onChangeText={e => setDescription(e)}
@@ -162,17 +168,20 @@ export default function Transfer() {
             textAlignVertical="top"
           />
           {emptyDesc && (
-            <Text style={styles.textRed}>Description is required</Text>
+            <Text style={styles.textRed} testID="emptyDescription">
+              Description is required
+            </Text>
           )}
         </View>
       </KeyboardAvoidingView>
+
       <TouchableOpacity
         style={
           payee && amount && description
             ? styles.floatBtnActive
             : styles.floatBtn
         }
-        // style={{position: 'absolute', bottom: 0}}
+        testID="transferNow"
         onPress={postTransfer}
         disabled={loading}>
         <Text style={[styles.textMedium, styles.textWhite]}>

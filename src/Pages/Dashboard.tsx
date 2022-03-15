@@ -6,6 +6,7 @@ import {
   FlatList,
   ToastAndroid,
   Animated,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -49,34 +50,46 @@ export default function Dashboard() {
 
   const fetchData = async () => {
     const token = await AsyncStorage.getItem('token');
-    try {
-      const getData = await Promise.all([
-        fetch('https://green-thumb-64168.uc.r.appspot.com/balance', {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }),
-        fetch('https://green-thumb-64168.uc.r.appspot.com/transactions', {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }),
-      ]);
 
-      if (getData[0].ok && getData[1].ok) {
-        const res = await Promise.all(getData.map(async e => await e.json()));
+    fetch('https://green-thumb-64168.uc.r.appspot.com/balance', {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+      .then(res => res.json())
+      .then(async res => {
+        if (res.status == 'success') {
+          setBalance(res);
+          setLoading(false);
+          return res;
+        } else {
+          if (Platform.OS == 'android') {
+            ToastAndroid.show('Session expired', 7000);
+          }
+          await AsyncStorage.removeItem('token');
+          navigation.replace('Auth');
+        }
+      });
 
-        setBalance(res[0]);
-        setTransaction(res[1].data);
-      } else {
-        ToastAndroid.show('Session expired', 7000);
-        await AsyncStorage.removeItem('token');
-        navigation.replace('Auth');
-      }
-      setLoading(false);
-    } catch (error) {
-      console.log('catch ', error);
-    }
+    fetch('https://green-thumb-64168.uc.r.appspot.com/transactions', {
+      headers: {
+        Authorization: `${token}`,
+      },
+    })
+      .then(res => res.json())
+      .then(async res => {
+        if (res.status == 'success') {
+          setTransaction(res.data);
+          setLoading(false);
+          return res.data;
+        } else {
+          if (Platform.OS == 'android') {
+            ToastAndroid.show('Session expired', 7000);
+          }
+          await AsyncStorage.removeItem('token');
+          navigation.replace('Auth');
+        }
+      });
   };
 
   useEffect(() => {
@@ -85,7 +98,6 @@ export default function Dashboard() {
         setUsername(e);
       }
     });
-
     fetchData();
 
     const unsubscribe = navigation.addListener('focus', () => {
@@ -97,10 +109,10 @@ export default function Dashboard() {
       setBalance(null);
       setTransaction([]);
     };
-  }, [navigation]);
+  }, []);
 
-  const animationLogout = () => {
-    Animated.timing(moveAside, {
+  const animationLogout = async () => {
+    await Animated.timing(moveAside, {
       toValue: visibleLogout ? 55 : 0,
       duration: 500,
       useNativeDriver: true,
@@ -140,8 +152,8 @@ export default function Dashboard() {
         <Text style={styles.textMedium} testID={'money'}>
           You have
         </Text>
-        <Text style={[styles.textLarge]} testID="balance">
-          SGD${useFormat(balance?.balance)}
+        <Text style={[styles.textLarge]}>
+          SGD$<Text testID="balance">{useFormat(balance?.balance)}</Text>
         </Text>
         <Text>Account No</Text>
         <Text style={styles.textMedium} testID="accountNo">
@@ -164,6 +176,7 @@ export default function Dashboard() {
                 : item.sender;
             return (
               <TouchableOpacity
+                testID="detail"
                 onPress={() => {
                   setModal({...item, person});
                 }}>
@@ -185,7 +198,8 @@ export default function Dashboard() {
       <Modal
         isVisible={modal ? true : false}
         onBackdropPress={() => setModal(null)}
-        onBackButtonPress={() => setModal(null)}>
+        onBackButtonPress={() => setModal(null)}
+        testID="detailModal">
         <View style={styles.modalContainer}>
           <Text style={[styles.textMedium, styles.textCenter]}>
             Details Transaction
