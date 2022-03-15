@@ -16,7 +16,7 @@ Feature that i developed:
  - Failed Page
  - Modal
  - Typescript
- - Unit Testing
+ - Unit Testing (branch unit_testing)
 
 Library that i used:
  - react-navigation
