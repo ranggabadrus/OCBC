@@ -16,8 +16,8 @@ to run this app through terminal:
 5. make sure emulator or real device(usb debugging enabled) is connected to laptop/PC.
 
 to run this app through APK:
-
-Link Download https://drive.google.com/file/d/14yejo-3RZQJuqL-cwlrTqDKUbun-Geyw/view?usp=sharing
+1. Download the APK here https://drive.google.com/file/d/14yejo-3RZQJuqL-cwlrTqDKUbun-Geyw/view?usp=sharing
+2. install to android phone
 
 **Feature that i developed:**
  - Register
