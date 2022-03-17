@@ -11,9 +11,11 @@ This app built by React Native CLI.
 to run this app through terminal:
 1. download github project
 2. go to my OCBC project folder
-3. type 'npm intall' -> to install all libraries.
-4. type 'npx react-native run-android' -> to run react native project
-5. make sure emulator or real device(usb debugging enabled) is connected to laptop/PC.
+4a. type 'npm install' -> to install all dependencies via NPM.
+4b. type 'yarn' -> to install all dependencies via Yarn.
+5a. type 'npx react-native run-android' -> to run react native project via NPM.
+5b. type 'yarn android' -> to run react native project via Yarn.
+7. make sure emulator or real device(usb debugging enabled) is connected to laptop/PC.
 
 to run this app through APK:
 1. Download the APK here https://drive.google.com/file/d/14yejo-3RZQJuqL-cwlrTqDKUbun-Geyw/view?usp=sharing
