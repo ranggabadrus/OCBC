@@ -103,7 +103,7 @@ export default function Login({
       <Text style={styles.title}>Login</Text>
       <View style={styles.form}>
         <View style={[styles.row, styles.between]}>
-          <Text style={styles.textWhite}>Email</Text>
+          <Text style={styles.textWhite}>Username</Text>
           <Icon name="email" size={24} color="#fff" />
         </View>
         <TextInput

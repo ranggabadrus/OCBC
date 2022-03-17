@@ -123,7 +123,7 @@ export default function Register({
       <Text style={styles.title}>Register</Text>
       <View style={styles.form}>
         <View style={[styles.row, styles.between]}>
-          <Text style={styles.textWhite}>Email</Text>
+          <Text style={styles.textWhite}>Username</Text>
           <Icon name="email" size={24} color="#fff" />
         </View>
         <TextInput
@@ -132,7 +132,7 @@ export default function Register({
           onFocus={() => setOnTyping(true)}
           onBlur={() => setOnTyping(false)}
           placeholderTextColor={'gray'}
-          placeholder="rangga@ocbc.com"
+          placeholder="rangga"
           style={styles.formEmail}
           testID="registerUsername"
         />
