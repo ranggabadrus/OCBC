@@ -5,6 +5,17 @@ My Name is Rangga and i am a candidate Mobile Developer for OCBC Singapore.
 
 This is my OCBC app for requirement to join Mobile Developer at OCBC Singapore.
 
+[Update]
+This app built by React Native CLI.
+
+to run this app through terminal:
+1. download github project
+2. go to my OCBC project folder
+3. type 'npm intall' -> to install all libraries.
+4. type 'npx react-native run-android' -> to run react native project
+5. make sure emulator or real device(usb debugging enabled) is connected to laptop/PC.
+
+to run this app through APK:
 Link Download https://drive.google.com/file/d/14yejo-3RZQJuqL-cwlrTqDKUbun-Geyw/view?usp=sharing
 
 **Feature that i developed:**
