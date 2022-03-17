@@ -33,7 +33,10 @@ const Dropdown = ({name, data, onSelect}) => {
   };
 
   const renderItem = ({item}) => (
-    <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => onItemPress(item)}
+      testID="selectPayee">
       <Text style={styles.bold}>{item.name}</Text>
       <Text>{item.accountNo}</Text>
     </TouchableOpacity>
@@ -41,12 +44,17 @@ const Dropdown = ({name, data, onSelect}) => {
 
   const renderDropdown = () => {
     return (
-      <Modal visible={visible} transparent animationType="none">
+      <Modal
+        visible={visible}
+        testID="modalPayee"
+        transparent
+        animationType="none">
         <TouchableOpacity
           style={styles.overlay}
           onPress={() => setVisible(false)}>
           <View style={[styles.dropdown, {top: dropdownTop}]}>
             <FlatList
+              testID="listPayee"
               data={data}
               renderItem={renderItem}
               keyExtractor={(item, index) => index.toString()}
@@ -59,11 +67,12 @@ const Dropdown = ({name, data, onSelect}) => {
 
   return (
     <TouchableOpacity
+      testID="buttonPayee"
       ref={DropdownButton}
       style={styles.button}
       onPress={toggleDropdown}>
       {renderDropdown()}
-      <Text style={[styles.buttonText, styles.bold]}>
+      <Text style={[styles.buttonText, styles.bold]} testID="payeeName">
         {(selected && selected.name) || name}
       </Text>
       <Icon style={styles.icon} name="chevron-down" />
