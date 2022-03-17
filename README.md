@@ -9,7 +9,7 @@ This is my OCBC app for requirement to join Mobile Developer at OCBC Singapore.
 This app built by React Native CLI.
 
 to run this app through terminal:
-1. download github project
+1. download my github project
 2. go to my OCBC project folder
 3. type 'npm install' -> to install all dependencies via NPM.
 4. type 'npx react-native run-android' -> to run react native project via NPM.
