@@ -20,15 +20,15 @@ to run this app through APK:
 2. install to android phone
 
 **Feature that i developed:**
- - Register
- - Login
- - View Dashboard
- - Make A Transfer
+ - Register Page
+ - Login Page
+ - Dashboard Page
+ - Transfer Page
  - Success Page
  - Failed Page
  - Modal
  - Typescript
- - Unit Testing (branch unit_testing)
+ - Unit Testing 
 
 **Library that i used:**
  - react-navigation
