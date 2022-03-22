@@ -5,7 +5,6 @@ My Name is Rangga and i am a candidate Mobile Developer for OCBC Singapore.
 
 This is my OCBC app for requirement to join Mobile Developer at OCBC Singapore.
 
-[Update]
 This app built by React Native CLI.
 
 to run this app through terminal:
